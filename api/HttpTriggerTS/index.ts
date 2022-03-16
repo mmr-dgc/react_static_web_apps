@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             "Content-type" : "application/json",
         },
         body: {
-            "test":"static web apps to azure functionのテスト"
+            "test":"static web apps to azure functionのテストです"
         }
     };
 
