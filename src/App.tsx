@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios, { AxiosResponse } from 'axios';
 
 function App() {
 
-  const [response, setResponse] = React.useState<AxiosResponse>();
+  const [response, setResponse] = useState<AxiosResponse>();
 
   useEffect(()=>{
     axios.get('/api/HttpTriggerTS')
@@ -28,6 +28,7 @@ function App() {
         <p>
         {response?.data.test}
         </p>
+        <button>bBUTTON</button>
       </header>
     </div>
   );
