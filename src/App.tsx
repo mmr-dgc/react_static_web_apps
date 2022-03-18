@@ -10,7 +10,7 @@ function App() {
   useEffect(()=>{
     axios.get('/api/HttpTriggerTS?name=mike')
     .then((res) =>{
-      setResponse([...response, res]);
+      setResponse((response)=>[...response, res]);
       console.log(res);
     })
     .catch((error)=>{
@@ -23,7 +23,7 @@ function App() {
   const onClick = () => {
     axios.get('/api/HttpTriggerTS?name=taro')
     .then((res) =>{
-      setResponse([...response, res]);
+      setResponse((response)=>[...response, res]);
       console.log(res);
     })
     .catch((error)=>{
