@@ -8,7 +8,7 @@ function App() {
   const [response, setResponse] = useState<AxiosResponse>();
 
   useEffect(()=>{
-    axios.get('/api/HttpTriggerTS')
+    axios.get('/api/HttpTriggerTS?name=mike')
     .then((response) =>{
       setResponse(response);
       console.log(response);
@@ -17,12 +17,20 @@ function App() {
       console.log(error);
     })
     .then(()=>{
-
     });
   },[])
 
   const onClick = () => {
-    alert('Clicked!');
+    axios.get('/api/HttpTriggerTS?name=taro')
+    .then((response) =>{
+      setResponse(response);
+      console.log(response);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+    .then(()=>{
+    });
   }
 
   return (
