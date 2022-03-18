@@ -21,6 +21,10 @@ function App() {
     });
   },[])
 
+  const onClick = () => {
+    alert('Clicked!');
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -28,7 +32,7 @@ function App() {
         <p>
         {response?.data.test}
         </p>
-        <button>bBUTTON</button>
+        <button onClick={onClick}>BUTTON</button>
       </header>
     </div>
   );
