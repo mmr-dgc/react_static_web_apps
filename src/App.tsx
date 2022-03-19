@@ -37,9 +37,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-        {response?.map((res) => res.data.test)}
-        </p>
+        {response?.map((res) =>  <p>{res}.data.test</p>)}
         <button onClick={onClick}>BUTTON</button>
       </header>
     </div>
