@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios, { AxiosResponse } from 'axios';
+// import {
+//   HubConnectionBuilder,
+//   HubConnectionState,
+//   HubConnection,
+// } from '@microsoft/signalr';
 
 function App() {
 
@@ -10,7 +15,7 @@ function App() {
   useEffect(()=>{
     axios.get('/api/HttpTriggerTS?name=mike')
     .then((res) =>{
-      setResponse((response)=>[...response, res]);
+      setResponse((preresponse)=>[...preresponse, res]);
       console.log(res);
     })
     .catch((error)=>{
@@ -23,7 +28,7 @@ function App() {
   const onClick = () => {
     axios.get('/api/HttpTriggerTS?name=taro')
     .then((res) =>{
-      setResponse((response)=>[...response, res]);
+      setResponse((preresponse)=>[...preresponse, res]);
       console.log(res);
     })
     .catch((error)=>{
@@ -37,7 +42,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        {response?.map((res) =>  <p>{res}.data.test</p>)}
+        {response?.map((res) => res.data.test)}
         <button onClick={onClick}>BUTTON</button>
       </header>
     </div>
