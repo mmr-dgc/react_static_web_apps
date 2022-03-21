@@ -6,16 +6,17 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
-      ]
+        "post",
+        "options"
+      ],
+      "route": "negotiate"
     },
     {
-      "type": "signalR",
-      "name": "signalRMessages",
-      "hubName": "chat",
-      "connectionStringSetting": "SignalRConnection",
-      "direction": "out"
+      "type": "signalRConnectionInfo",
+      "name": "connectionInfo",
+      "hubName": "serverless",
+      "connectionStringSetting": "AzureSignalRConnectionString",
+      "direction": "in"
     },
     {
       "type": "http",
