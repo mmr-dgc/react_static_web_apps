@@ -7,7 +7,7 @@ const httpTrigger: AzureFunction = async function (
   
   context.bindings.testdocument = JSON.stringify([
     {
-      name: "John Henry"
+      name: req.body?.message
     },
   ]);
 };

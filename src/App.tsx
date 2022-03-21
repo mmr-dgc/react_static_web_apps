@@ -10,6 +10,7 @@ import {
 
 function App() {
   const [signalRResponse, setSignalRResponse] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>("");
 
   // RPCで呼び出されるメソッド
   const newMessage = (message: string) => {
@@ -34,10 +35,14 @@ function App() {
     connection.start().catch(console.error);
   }, []);
 
-  const onClick = () => {
-    axios.get("/api/cosmosdb").catch((error) => {
-      console.log(error);
-    });
+  const submitMessageToCosmosDB = () => {
+    axios
+      .post("/api/cosmosdb", {
+        message: message,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -47,7 +52,23 @@ function App() {
         {signalRResponse?.map((res, index) => (
           <li key={index}>{res}</li>
         ))}
-        <button onClick={onClick}>BUTTON(cosmosdb)</button>
+        <form
+          onSubmit={(event) => {
+            submitMessageToCosmosDB();
+            event.preventDefault();
+          }}
+        >
+          <label>
+            Message:
+            <textarea
+              value={message}
+              onChange={(event) => {
+                setMessage(event.target.value);
+              }}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </header>
     </div>
   );
