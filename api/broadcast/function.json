@@ -1,0 +1,22 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "testlease",
+      "connectionStringSetting": "AzureCosmosDBConnectionString",
+      "databaseName": "testdb",
+      "collectionName": "testcontainer",
+      "createLeaseCollectionIfNotExists": false
+    },
+    {
+      "type": "signalR",
+      "name": "signalRMessages",
+      "hubName": "serverless",
+      "connectionStringSetting": "AzureSignalRConnectionString",
+      "direction": "out"
+    }
+  ],
+  "scriptFile": "../dist/broadcast/index.js"
+}

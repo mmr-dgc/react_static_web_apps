@@ -1,49 +1,53 @@
-import { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios, { AxiosResponse } from 'axios';
-// import {
-//   HubConnectionBuilder,
-//   HubConnectionState,
-//   HubConnection,
-// } from '@microsoft/signalr';
+import { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import axios, { AxiosResponse } from "axios";
+import {
+  HubConnectionBuilder,
+  LogLevel,
+  HubConnection,
+} from "@microsoft/signalr";
 
 function App() {
+  const [signalRResponse, setSignalRResponse] = useState<string[]>([]);
 
-  const [response, setResponse] = useState<AxiosResponse[]>([]);
+  // RPCで呼び出されるメソッド
+  const newMessage = (message: string) => {
+    setSignalRResponse((state) => [...state, message]);
+  };
 
-  useEffect(()=>{
-    axios.get('/api/HttpTriggerTS?name=mike')
-    .then((res) =>{
-      setResponse((preresponse)=>[...preresponse, res]);
-      console.log(res);
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
-    .then(()=>{
-    });
-  },[])
+  // connectionに上記メソッドをバインディング
+  const bindConnectionMessage = (connection: HubConnection) => {
+    connection.on("newMessage", newMessage);
+  };
+
+  useEffect(() => {
+    const apiBaseUrl: string = "http://localhost:7071/api"; //window.location.origin;
+
+    const connection: HubConnection = new HubConnectionBuilder()
+      .withUrl(apiBaseUrl)
+      .configureLogging(LogLevel.Information)
+      .build();
+
+    bindConnectionMessage(connection);
+
+    connection.start().catch(console.error);
+  }, []);
 
   const onClick = () => {
-    axios.get('/api/HttpTriggerTS?name=taro')
-    .then((res) =>{
-      setResponse((preresponse)=>[...preresponse, res]);
-      console.log(res);
-    })
-    .catch((error)=>{
+    axios.get("/api/cosmosdb").catch((error) => {
       console.log(error);
-    })
-    .then(()=>{
     });
-  }
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        {response?.map((res) => res.data.test)}
-        <button onClick={onClick}>BUTTON</button>
+        {signalRResponse?.map((res, index) => (
+          <li key={index}>{res}</li>
+        ))}
+        <button onClick={onClick}>BUTTON(cosmosdb)</button>
       </header>
     </div>
   );

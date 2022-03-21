@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "post"]
+    },
+    {
+      "name": "testdocument",
+      "type": "cosmosDB",
+      "databaseName": "testdb",
+      "collectionName": "testcontainer",
+      "createIfNotExists": false,
+      "connectionStringSetting": "AzureCosmosDBConnectionString",
+      "direction": "out"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ],
+  "scriptFile": "../dist/cosmosdb/index.js"
+}
